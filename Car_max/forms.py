@@ -1,11 +1,14 @@
 from django import forms
-from django.contrib.auth.forms import UserCreationForm
-from .models import User
+from .models import Car
 
-class RegisterForm(UserCreationForm):
-    email = forms.EmailField(required=True)
-    is_seller = forms.BooleanField(required=False)
-
+class CarForm(forms.ModelForm):
     class Meta:
-        model = User
-        fields = ('username', 'email', 'is_seller', 'password1', 'password2')
+        model = Car
+        fields = [
+            'brand', 'model_name', 'year', 'price', 'mileage', 
+            'transmission', 'fuel_type', 'engine', 'description', 
+            'stock', 'categories'
+        ]
+        widgets = {
+            'categories': forms.CheckboxSelectMultiple()
+        }
