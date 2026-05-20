@@ -44,6 +44,7 @@ class Car(models.Model):
     engine = models.CharField(max_length=50)
     description = models.TextField()
     stock = models.PositiveIntegerField(default=1)
+    image = models.ImageField(upload_to='cars/', blank=True, null=True)
     
     owner = models.ForeignKey(
         settings.AUTH_USER_MODEL,

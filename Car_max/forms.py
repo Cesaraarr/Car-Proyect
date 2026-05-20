@@ -7,7 +7,7 @@ class CarForm(forms.ModelForm):
         fields = [
             'brand', 'model_name', 'year', 'price', 'mileage', 
             'transmission', 'fuel_type', 'engine', 'description', 
-            'stock', 'categories'
+            'stock', 'categories', 'image'
         ]
         widgets = {
             'categories': forms.CheckboxSelectMultiple()
