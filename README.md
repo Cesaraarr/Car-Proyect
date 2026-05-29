@@ -1,34 +1,20 @@
-# 🚀 SPRINT 1 — Setup Inicial + Arquitectura Base
+# 🚀 SPRINT 1 — Setup + Configuración Base
 
 ## 🎯 Objetivo
 
-En esta primera etapa construiremos toda la estructura inicial del proyecto **Car_max**, un marketplace de vehículos de lujo desarrollado con Django.
+Tener:
 
-Al finalizar este Sprint tendremos:
-
-- ✔ Proyecto Django funcionando
-- ✔ Aplicación `Car_max`
-- ✔ Configuración inicial del sistema
-- ✔ Usuario personalizado
-- ✔ Arquitectura MVT
-- ✔ Templates conectados
-- ✔ Bootstrap 5.3 integrado
-- ✔ Sistema listo para escalar
+* Proyecto Django funcionando
+* Aplicación `Car_max`
+* Usuario personalizado
+* Templates conectados
+* Bootstrap 5.3 funcionando
+* CRUD de vehículos
+* Dashboard para vendedores
 
 ---
 
-# 🧱 1️⃣ Crear Proyecto Django
-
-## 📌 ¿Qué haremos?
-
-Crearemos:
-
-- Proyecto principal → `Luxury_Car`
-- Aplicación → `Car_max`
-
----
-
-## ⚙️ Comandos de instalación
+## 1 Crear proyecto Django
 
 ```bash
 django-admin startproject Luxury_Car
@@ -40,372 +26,69 @@ python manage.py startapp Car_max
 
 ---
 
-# 📌 Explicación
+## 2 Configurar aplicación Django
 
-## `startproject Luxury_Car`
-
-Crea el núcleo principal del proyecto Django.
-
-Aquí viven:
-
-- settings globales
-- urls globales
-- configuración WSGI
-- configuración ASGI
-- seguridad
-- middlewares
-
----
-
-## `startapp Car_max`
-
-Crea el módulo donde estará toda la lógica del marketplace automotriz.
-
-Aquí estarán:
-
-- modelos
-- vistas
-- formularios
-- templates
-- autenticación
-- CRUD
-- dashboard
-- carrito
-
----
-
-# 🧱 2️⃣ Arquitectura del Proyecto
-
-## 📁 Estructura principal
-
-```bash
-CAR-PROYECT/
-│
-├── Car_max/
-│   ├── migrations/
-│   ├── templates/
-│   │   └── Car_max/
-│   │       ├── base.html
-│   │       ├── home.html
-│   │       ├── dashboard.html
-│   │       ├── login.html
-│   │       ├── register.html
-│   │       ├── car_form.html
-│   │       ├── product_form.html
-│   │       └── product_confirm_delete.html
-│   │
-│   ├── admin.py
-│   ├── apps.py
-│   ├── forms.py
-│   ├── models.py
-│   ├── urls.py
-│   └── views.py
-│
-├── Luxury_Car/
-│   ├── settings.py
-│   ├── urls.py
-│   ├── asgi.py
-│   └── wsgi.py
-│
-├── db.sqlite3
-└── manage.py
-```
-
----
-
-# 📌 Explicación de la Arquitectura
-
-## 📁 Car_max/
-
-Contiene toda la lógica del marketplace.
-
-Aquí se desarrolla:
-
-- backend
-- frontend
-- ORM
-- autenticación
-- templates
-- CRUD
-
----
-
-## 📁 templates/
-
-Contiene todas las vistas HTML del sistema.
-
----
-
-## 📁 Luxury_Car/
-
-Contiene la configuración global del proyecto Django.
-
----
-
-## 📁 db.sqlite3
-
-Base de datos SQLite utilizada durante desarrollo.
-
----
-
-# 🧱 3️⃣ Configuración de la Aplicación
-
-## 📁 Car_max/apps.py
+📁 Car_max/apps.py
 
 ```python
 from django.apps import AppConfig
 
 
 class CarMaxConfig(AppConfig):
-
     default_auto_field = 'django.db.models.BigAutoField'
-
     name = 'Car_max'
 ```
 
----
-
-# 📌 Explicación
-
-## `AppConfig`
-
-Representa la configuración interna de la aplicación Django.
-
----
-
-## `default_auto_field`
-
-Define el tipo de llave primaria automática por defecto.
-
-En este caso:
+📌 Configura la aplicación principal:
 
 ```python
-BigAutoField
-```
-
-usa enteros grandes para IDs automáticos.
-
----
-
-## `name = 'Car_max'`
-
-Le indica a Django el nombre oficial de la aplicación.
-
-Esto permite:
-
-- registrar modelos
-- cargar templates
-- detectar migraciones
-- conectar URLs
-
----
-
-# 🧱 4️⃣ Configuración Global del Proyecto
-
-## 📁 Luxury_Car/settings.py
-
----
-
-# 🔐 Configuración principal
-
-```python
-SECRET_KEY = 'django-insecure...'
+Car_max
 ```
 
 ---
 
-# 📌 Explicación
+## 3 Configurar settings.py
 
-La `SECRET_KEY` es utilizada por Django para:
+📁 Luxury_Car/settings.py
 
-- cifrado de sesiones
-- tokens CSRF
-- seguridad
-- autenticación
-
-⚠️ Nunca debe compartirse en producción.
-
----
-
-# 🧱 Modo desarrollo
-
-```python
-DEBUG = True
-```
-
----
-
-# 📌 Explicación
-
-Permite:
-
-- ver errores detallados
-- depuración
-- recarga automática
-
-⚠️ En producción debe ser:
-
-```python
-DEBUG = False
-```
-
----
-
-# 🧱 Hosts permitidos
-
-```python
-ALLOWED_HOSTS = []
-```
-
----
-
-# 📌 Explicación
-
-Define qué dominios pueden acceder al proyecto.
-
-En desarrollo normalmente queda vacío.
-
----
-
-# 🧱 Usuario Personalizado
-
-```python
-AUTH_USER_MODEL = 'Car_max.User'
-```
-
----
-
-# 📌 Explicación
-
-Django normalmente usa:
-
-```python
-auth.User
-```
-
-Pero nosotros creamos un usuario personalizado porque necesitamos:
-
-- vendedores
-- compradores
-- permisos
-- dashboards
-- roles especiales
-
----
-
-# 🧱 Aplicaciones instaladas
+📌 Registrar aplicación
 
 ```python
 INSTALLED_APPS = [
-
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
     'Car_max'
 ]
 ```
 
----
-
-# 📌 Explicación
-
-## Apps internas de Django
-
-### `django.contrib.admin`
-
-Activa el panel administrativo.
-
----
-
-### `django.contrib.auth`
-
-Sistema de autenticación.
-
----
-
-### `django.contrib.sessions`
-
-Permite sesiones de usuario.
-
----
-
-### `django.contrib.messages`
-
-Permite mensajes dinámicos.
-
----
-
-### `django.contrib.staticfiles`
-
-Manejo de archivos estáticos:
-
-- CSS
-- JS
-- imágenes
-
----
-
-## App personalizada
+📌 Usuario personalizado
 
 ```python
-'Car_max'
+AUTH_USER_MODEL = 'Car_max.User'
 ```
 
-Registra nuestra aplicación automotriz.
-
----
-
-# 🧱 Middlewares
+📌 Base de datos SQLite
 
 ```python
-MIDDLEWARE = [
-
-    'django.middleware.security.SecurityMiddleware',
-
-    'django.contrib.sessions.middleware.SessionMiddleware',
-
-    'django.middleware.common.CommonMiddleware',
-
-    'django.middleware.csrf.CsrfViewMiddleware',
-
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
-
-    'django.contrib.messages.middleware.MessageMiddleware',
-
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
-]
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
+}
 ```
 
----
-
-# 📌 Explicación
-
-Los middlewares procesan cada petición HTTP.
-
-Ejemplos:
-
-| Middleware | Función |
-|---|---|
-| SecurityMiddleware | Seguridad |
-| SessionMiddleware | Manejo de sesiones |
-| AuthenticationMiddleware | Login de usuarios |
-| CsrfViewMiddleware | Protección CSRF |
-
----
-
-# 🧱 Templates
+📌 Templates automáticos
 
 ```python
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-
         'DIRS': [],
-
         'APP_DIRS': True,
     },
 ]
@@ -413,174 +96,848 @@ TEMPLATES = [
 
 ---
 
-# 📌 Explicación
+## 4 Configurar URLs globales
 
-## `APP_DIRS = True`
-
-Le dice a Django:
-
-> “Busca automáticamente carpetas templates dentro de cada app”.
-
-Por eso funciona:
-
-```bash
-templates/Car_max/
-```
-
----
-
-# 🧱 Base de Datos
-
-```python
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
-```
-
----
-
-# 📌 Explicación
-
-El proyecto utiliza:
-
-```bash
-SQLite3
-```
-
-Ventajas:
-
-- ligera
-- rápida
-- no requiere instalación
-- perfecta para desarrollo
-
----
-
-# 🧱 Internacionalización
-
-```python
-LANGUAGE_CODE = 'en-us'
-
-TIME_ZONE = 'UTC'
-```
-
----
-
-# 📌 Explicación
-
-Define:
-
-- idioma del sistema
-- zona horaria
-- traducciones
-- manejo de fechas
-
----
-
-# 🧱 Archivos estáticos
-
-```python
-STATIC_URL = 'static/'
-```
-
----
-
-# 📌 Explicación
-
-Permite servir:
-
-- CSS
-- JavaScript
-- imágenes estáticas
-
----
-
-# 🧱 Tipo de ID por defecto
-
-```python
-DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-```
-
----
-
-# 📌 Explicación
-
-Define IDs automáticos grandes para nuevos modelos.
-
----
-
-# 🧱 5️⃣ Configuración de URLs Globales
-
-## 📁 Luxury_Car/urls.py
+📁 Luxury_Car/urls.py
 
 ```python
 from django.contrib import admin
-
 from django.urls import path, include
-
 from django.conf import settings
-
 from django.conf.urls.static import static
 
-
 urlpatterns = [
-
-    # =========================
-    # ⚙️ Panel Admin
-    # =========================
     path('admin/', admin.site.urls),
-
-    # =========================
-    # 🚘 Aplicación Car_max
-    # =========================
     path('', include('Car_max.urls')),
 ]
 
-# =========================
-# 🖼️ Archivos multimedia
-# =========================
 if settings.DEBUG:
-
     urlpatterns += static(
         settings.MEDIA_URL,
         document_root=settings.MEDIA_ROOT
     )
 ```
 
+📌 Conecta todas las rutas de:
+
+```python
+Car_max.urls
+```
+
 ---
 
-# 📌 Explicación
-
-## `admin.site.urls`
-
-Activa:
+📌 Activa el panel administrativo:
 
 ```bash
 /admin/
 ```
 
-Panel administrativo Django.
-
 ---
 
-## `include('Car_max.urls')`
-
-Conecta las rutas internas de la aplicación.
-
----
-
-## `static(...)`
-
-Permite mostrar imágenes durante desarrollo.
-
-Muy importante porque el modelo `Car` usa:
+📌 Permite mostrar imágenes usando:
 
 ```python
-ImageField
+MEDIA_URL
 ```
 
 ---
+
+# 🚀 SPRINT 2 — URLs + Vistas
+
+## 🎯 Objetivo
+
+Implementar:
+
+* Home principal
+* Registro
+* Login
+* Logout
+* Dashboard
+* CRUD de vehículos
+
+---
+
+## 1 Configurar URLs de la aplicación
+
+📁 Car_max/urls.py
+
+```python
+from django.urls import path
+from . import views
+
+urlpatterns = [
+    path('', views.home, name='home'),
+
+    path('register/', views.register, name='register'),
+
+    path('login/', views.login_view, name='login'),
+
+    path('logout/', views.logout_view, name='logout'),
+
+    path('dashboard/', views.dashboard, name='dashboard'),
+
+    path('cars/create/', views.car_create, name='car_create'),
+
+    path(
+        'cars/<uuid:pk>/edit/',
+        views.car_update,
+        name='car_update'
+    ),
+
+    path(
+        'cars/<uuid:pk>/delete/',
+        views.car_delete,
+        name='car_delete'
+    ),
+]
+```
+
+---
+
+## 2 Vista Home
+
+📁 Car_max/views.py
+
+```python
+def home(request):
+    cars = Car.objects.all()[:6]
+    return render(request, 'Car_max/home.html', {'cars': cars})
+```
+
+📌 Obtiene los primeros 6 vehículos registrados usando:
+
+```python
+Car.objects.all()[:6]
+```
+
+---
+
+📌 Renderiza el template:
+
+```python
+Car_max/home.html
+```
+
+---
+
+📌 Envía los datos usando:
+
+```python
+{'cars': cars}
+```
+
+---
+
+## 3 Vista Register
+
+📁 Car_max/views.py
+
+```python
+def register(request):
+
+    if request.method == 'POST':
+
+        form = UserCreationForm(request.POST)
+
+        if form.is_valid():
+
+            user = form.save()
+
+            login(request, user)
+
+            return redirect('home')
+
+    else:
+
+        form = UserCreationForm()
+
+    return render(
+        request,
+        'Car_max/register.html',
+        {'form': form}
+    )
+```
+
+📌 Utiliza:
+
+```python
+UserCreationForm
+```
+
+para registrar usuarios.
+
+---
+
+📌 Después del registro ejecuta:
+
+```python
+login(request, user)
+```
+
+---
+
+📌 Redirecciona hacia:
+
+```python
+home
+```
+
+---
+
+## 4 Vista Login
+
+📁 Car_max/views.py
+
+```python
+def login_view(request):
+
+    if request.method == 'POST':
+
+        form = AuthenticationForm(
+            request,
+            data=request.POST
+        )
+
+        if form.is_valid():
+
+            username = form.cleaned_data.get('username')
+
+            password = form.cleaned_data.get('password')
+
+            user = authenticate(
+                username=username,
+                password=password
+            )
+
+            if user is not None:
+
+                login(request, user)
+
+                return redirect('dashboard')
+
+    else:
+
+        form = AuthenticationForm()
+
+    return render(
+        request,
+        'Car_max/login.html',
+        {'form': form}
+    )
+```
+
+📌 Utiliza:
+
+```python
+AuthenticationForm
+```
+
+para autenticar usuarios.
+
+---
+
+📌 Si el usuario existe:
+
+```python
+login(request, user)
+```
+
+---
+
+📌 Después del login redirecciona a:
+
+```python
+dashboard
+```
+
+---
+
+## 5 Vista Logout
+
+📁 Car_max/views.py
+
+```python
+def logout_view(request):
+    logout(request)
+    return redirect('home')
+```
+
+📌 Cierra la sesión actual usando:
+
+```python
+logout(request)
+```
+
+---
+
+📌 Después redirecciona hacia:
+
+```python
+home
+```
+
+---
+
+# 🚀 SPRINT 3 — Dashboard + CRUD Vehículos
+
+## 🎯 Objetivo
+
+Implementar:
+
+* Dashboard privado
+* Crear vehículos
+* Editar vehículos
+* Eliminar vehículos
+* Validación de propietario
+
+---
+
+## 1 Vista Dashboard
+
+📁 Car_max/views.py
+
+```python
+@login_required
+def dashboard(request):
+
+    if not request.user.is_seller:
+        return HttpResponseForbidden(
+            "No tienes permisos"
+        )
+
+    cars = Car.objects.filter(
+        owner=request.user
+    )
+
+    return render(
+        request,
+        'Car_max/dashboard.html',
+        {'cars': cars}
+    )
+```
+
+📌 Requiere autenticación usando:
+
+```python
+@login_required
+```
+
+---
+
+📌 Verifica si el usuario es vendedor:
+
+```python
+request.user.is_seller
+```
+
+---
+
+📌 Obtiene únicamente vehículos del usuario autenticado:
+
+```python
+Car.objects.filter(owner=request.user)
+```
+
+---
+
+## 2 Crear Vehículo
+
+📁 Car_max/views.py
+
+```python
+@login_required
+def car_create(request):
+
+    if not request.user.is_seller:
+        return HttpResponseForbidden(
+            "Solo vendedores autorizados"
+        )
+
+    form = CarForm(
+        request.POST or None,
+        request.FILES or None
+    )
+
+    if form.is_valid():
+
+        car = form.save(commit=False)
+
+        car.owner = request.user
+
+        car.save()
+
+        form.save_m2m()
+
+        return redirect('dashboard')
+
+    return render(
+        request,
+        'Car_max/car_form.html',
+        {'form': form}
+    )
+```
+
+📌 Utiliza:
+
+```python
+CarForm
+```
+
+para registrar vehículos.
+
+---
+
+📌 Guarda imágenes usando:
+
+```python
+request.FILES
+```
+
+---
+
+📌 Asigna automáticamente el propietario:
+
+```python
+car.owner = request.user
+```
+
+---
+
+## 3 Editar Vehículo
+
+📁 Car_max/views.py
+
+```python
+@login_required
+def car_update(request, pk):
+
+    car = get_object_or_404(
+        Car,
+        pk=pk
+    )
+
+    if car.owner != request.user:
+        return HttpResponseForbidden(
+            "No puedes editar este vehículo"
+        )
+
+    form = CarForm(
+        request.POST or None,
+        request.FILES or None,
+        instance=car
+    )
+
+    if form.is_valid():
+
+        form.save()
+
+        return redirect('dashboard')
+
+    return render(
+        request,
+        'Car_max/car_form.html',
+        {'form': form}
+    )
+```
+
+📌 Obtiene el vehículo usando:
+
+```python
+get_object_or_404()
+```
+
+---
+
+📌 Verifica que el propietario sea el usuario autenticado.
+
+---
+
+📌 Reutiliza:
+
+```python
+car_form.html
+```
+
+---
+
+## 4 Eliminar Vehículo
+
+📁 Car_max/views.py
+
+```python
+@login_required
+def car_delete(request, pk):
+
+    car = get_object_or_404(
+        Car,
+        pk=pk
+    )
+
+    if car.owner != request.user:
+        return HttpResponseForbidden(
+            "No puedes eliminar este vehículo"
+        )
+
+    if request.method == 'POST':
+
+        car.delete()
+
+        return redirect('dashboard')
+
+    return render(
+        request,
+        'Car_max/car_confirm_delete.html',
+        {'car': car}
+    )
+```
+
+📌 Elimina vehículos usando:
+
+```python
+car.delete()
+```
+
+---
+
+📌 Utiliza confirmación previa con:
+
+```python
+car_confirm_delete.html
+```
+
+---
+
+# 🚀 SPRINT 4 — Formularios
+
+## 🎯 Objetivo
+
+Implementar formularios usando Django Forms.
+
+---
+
+## 1 Formulario de Vehículos
+
+📁 Car_max/forms.py
+
+```python
+from django import forms
+from .models import Car
+
+
+class CarForm(forms.ModelForm):
+
+    class Meta:
+
+        model = Car
+
+        fields = [
+            'brand',
+            'model_name',
+            'year',
+            'price',
+            'mileage',
+            'transmission',
+            'fuel_type',
+            'engine',
+            'description',
+            'stock',
+            'categories',
+            'image'
+        ]
+
+        widgets = {
+            'categories': forms.CheckboxSelectMultiple()
+        }
+```
+
+📌 El formulario utiliza el modelo:
+
+```python
+Car
+```
+
+---
+
+📌 Permite subir imágenes usando:
+
+```python
+image
+```
+
+---
+
+📌 Las categorías se renderizan usando:
+
+```python
+CheckboxSelectMultiple
+```
+
+---
+
+# 🚀 SPRINT 5 — Templates HTML
+
+## 🎯 Objetivo
+
+Implementar interfaz visual usando Bootstrap 5.3.
+
+---
+
+## 1 Template Base
+
+📁 templates/Car_max/base.html
+
+```html
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+
+    <title>Car_max</title>
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+        rel="stylesheet">
+</head>
+```
+
+📌 Importa Bootstrap 5.3 usando CDN.
+
+---
+
+## 2 Navbar principal
+
+📁 templates/Car_max/base.html
+
+```html
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+```
+
+📌 Utiliza Bootstrap Navbar.
+
+---
+
+📌 Muestra el nombre:
+
+```html
+Car_max
+```
+
+---
+
+📌 Verifica autenticación usando:
+
+```html
+{% if user.is_authenticated %}
+```
+
+---
+
+## 3 Dashboard HTML
+
+📁 templates/Car_max/dashboard.html
+
+```html
+{% for car in cars %}
+```
+
+📌 Recorre todos los vehículos enviados desde:
+
+```python
+views.dashboard
+```
+
+---
+
+📌 Muestra:
+
+* imagen
+* marca
+* modelo
+* año
+* precio
+* kilometraje
+* transmisión
+
+---
+
+📌 Permite:
+
+* editar
+* eliminar
+
+---
+
+## 4 Formulario Vehículos
+
+📁 templates/Car_max/car_form.html
+
+```html
+<form method="POST" enctype="multipart/form-data">
+```
+
+📌 Permite enviar imágenes usando:
+
+```html
+multipart/form-data
+```
+
+---
+
+📌 Utiliza:
+
+```html
+{{ form.as_p }}
+```
+
+para renderizar automáticamente el formulario.
+
+---
+
+# 🚀 SPRINT 6 — Panel Administrativo
+
+## 🎯 Objetivo
+
+Registrar modelos en Django Admin.
+
+---
+
+## 1 Configurar admin.py
+
+📁 Car_max/admin.py
+
+```python
+from django.contrib import admin
+from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
+
+from .models import (
+    User,
+    Category,
+    Car,
+    Cart,
+    CartItem
+)
+```
+
+---
+
+## 2 Registrar Usuario
+
+📁 Car_max/admin.py
+
+```python
+@admin.register(User)
+class UserAdmin(BaseUserAdmin):
+
+    list_display = (
+        'username',
+        'email',
+        'is_seller',
+        'is_staff'
+    )
+```
+
+📌 Extiende:
+
+```python
+BaseUserAdmin
+```
+
+---
+
+📌 Muestra:
+
+* username
+* email
+* is_seller
+* is_staff
+
+---
+
+## 3 Registrar Vehículos
+
+📁 Car_max/admin.py
+
+```python
+@admin.register(Car)
+class CarAdmin(admin.ModelAdmin):
+
+    list_display = (
+        'brand',
+        'model_name',
+        'year',
+        'price',
+        'transmission',
+        'fuel_type',
+        'owner'
+    )
+```
+
+📌 Muestra información principal de vehículos.
+
+---
+
+📌 Implementa filtros usando:
+
+```python
+list_filter
+```
+
+---
+
+📌 Implementa búsqueda usando:
+
+```python
+search_fields
+```
+
+---
+
+# 🧪 Flujo de prueba
+
+1 Crear superusuario
+
+```bash
+python manage.py createsuperuser
+```
+
+2 Ejecutar servidor
+
+```bash
+python manage.py runserver
+```
+
+3 Entrar a:
+
+```bash
+http://127.0.0.1:8000/
+```
+
+4 Registrar usuario
+
+5 Iniciar sesión
+
+6 Entrar al dashboard
+
+7 Registrar vehículo
+
+8 Editar vehículo
+
+9 Eliminar vehículo
+
+10 Entrar al panel admin
+
+---
+
+# ✅ Resultado Final
+
+```bash
+✔ Proyecto Django funcionando
+✔ Usuario personalizado
+✔ CRUD de vehículos
+✔ Dashboard privado
+✔ Login y registro
+✔ Templates Bootstrap
+✔ Panel administrativo
+✔ Gestión de imágenes
+✔ Formularios Django
+```
