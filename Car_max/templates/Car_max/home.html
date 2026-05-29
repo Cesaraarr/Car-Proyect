@@ -2,24 +2,30 @@
 
 {% block content %}
 
-<h2 class="mb-4">Productos</h2>
+<h2 class="mb-4">Vehículos disponibles</h2>
 
 <div class="row">
-    {% for product in products %}
+    {% for car in cars %}
     <div class="col-md-4">
         <div class="card mb-4 shadow-sm">
+            {% if car.image %}
+                <img src="{{ car.image.url }}" class="card-img-top" alt="{{ car.brand }} {{ car.model_name }}" style="height: 200px; object-fit: cover;">
+            {% endif %}
             <div class="card-body">
-                <h5>{{ product.name }}</h5>
-                <p>{{ product.description|truncatechars:80 }}</p>
+                <h5>{{ car.brand }} {{ car.model_name }}</h5>
+                <p>{{ car.description|truncatechars:80 }}</p>
 
-                <p><strong>$ {{ product.price }}</strong></p>
+                <p><strong>$ {{ car.price }}</strong></p>
+                <p><small>Año: {{ car.year }} | Km: {{ car.mileage }}</small></p>
 
                 <small class="text-muted">
-                    Vendedor: {{ product.owner.username }}
+                    Vendedor: {{ car.owner.username }}
                 </small>
 
                 <div class="mt-2">
-                    {% for cat in product.categories.all %}
+                    <span class="badge bg-primary">{{ car.transmission }}</span>
+                    <span class="badge bg-info">{{ car.fuel_type }}</span>
+                    {% for cat in car.categories.all %}
                         <span class="badge bg-secondary">{{ cat.name }}</span>
                     {% endfor %}
                 </div>
@@ -28,7 +34,7 @@
         </div>
     </div>
     {% empty %}
-        <p>No hay productos aún.</p>
+        <p>No hay vehículos disponibles aún.</p>
     {% endfor %}
 </div>
 
