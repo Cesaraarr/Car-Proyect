@@ -1,18 +1,19 @@
-# 🚀 SPRINT 1 — Setup Inicial + Configuración Base
+# 🚀 SPRINT 1 — Setup Inicial + Arquitectura Base
 
 ## 🎯 Objetivo
 
-En esta primera etapa construiremos la base del sistema **Car_max**.
+En esta primera etapa construiremos toda la estructura inicial del proyecto **Car_max**, un marketplace de vehículos de lujo desarrollado con Django.
 
 Al finalizar este Sprint tendremos:
 
 - ✔ Proyecto Django funcionando
 - ✔ Aplicación `Car_max`
+- ✔ Configuración inicial del sistema
 - ✔ Usuario personalizado
-- ✔ Configuración de rutas
+- ✔ Arquitectura MVT
 - ✔ Templates conectados
-- ✔ Bootstrap 5.3 funcionando
-- ✔ Arquitectura inicial lista para escalar
+- ✔ Bootstrap 5.3 integrado
+- ✔ Sistema listo para escalar
 
 ---
 
@@ -22,7 +23,7 @@ Al finalizar este Sprint tendremos:
 
 Crearemos:
 
-- Proyecto principal → `luxury_car`
+- Proyecto principal → `Luxury_Car`
 - Aplicación → `Car_max`
 
 ---
@@ -30,34 +31,35 @@ Crearemos:
 ## ⚙️ Comandos de instalación
 
 ```bash
-django-admin startproject luxury_car
+django-admin startproject Luxury_Car
 
-cd luxury_car
+cd Luxury_Car
 
 python manage.py startapp Car_max
 ```
 
 ---
 
-## 📌 Explicación
+# 📌 Explicación
 
-### `startproject luxury_car`
+## `startproject Luxury_Car`
 
-Crea el proyecto principal Django.
+Crea el núcleo principal del proyecto Django.
 
-Aquí vive:
+Aquí viven:
 
-- configuración global
-- settings
-- urls
-- wsgi
-- asgi
+- settings globales
+- urls globales
+- configuración WSGI
+- configuración ASGI
+- seguridad
+- middlewares
 
 ---
 
-### `startapp Car_max`
+## `startapp Car_max`
 
-Crea la aplicación donde estará toda la lógica del marketplace.
+Crea el módulo donde estará toda la lógica del marketplace automotriz.
 
 Aquí estarán:
 
@@ -65,18 +67,237 @@ Aquí estarán:
 - vistas
 - formularios
 - templates
-- lógica del negocio
+- autenticación
+- CRUD
+- dashboard
+- carrito
 
 ---
 
-# 🧱 2️⃣ Registrar la Aplicación
+# 🧱 2️⃣ Arquitectura del Proyecto
 
-## 📁 luxury_car/settings.py
+## 📁 Estructura principal
 
-## 📌 Agregar `Car_max` en INSTALLED_APPS
+```bash
+CAR-PROYECT/
+│
+├── Car_max/
+│   ├── migrations/
+│   ├── templates/
+│   │   └── Car_max/
+│   │       ├── base.html
+│   │       ├── home.html
+│   │       ├── dashboard.html
+│   │       ├── login.html
+│   │       ├── register.html
+│   │       ├── car_form.html
+│   │       ├── product_form.html
+│   │       └── product_confirm_delete.html
+│   │
+│   ├── admin.py
+│   ├── apps.py
+│   ├── forms.py
+│   ├── models.py
+│   ├── urls.py
+│   └── views.py
+│
+├── Luxury_Car/
+│   ├── settings.py
+│   ├── urls.py
+│   ├── asgi.py
+│   └── wsgi.py
+│
+├── db.sqlite3
+└── manage.py
+```
+
+---
+
+# 📌 Explicación de la Arquitectura
+
+## 📁 Car_max/
+
+Contiene toda la lógica del marketplace.
+
+Aquí se desarrolla:
+
+- backend
+- frontend
+- ORM
+- autenticación
+- templates
+- CRUD
+
+---
+
+## 📁 templates/
+
+Contiene todas las vistas HTML del sistema.
+
+---
+
+## 📁 Luxury_Car/
+
+Contiene la configuración global del proyecto Django.
+
+---
+
+## 📁 db.sqlite3
+
+Base de datos SQLite utilizada durante desarrollo.
+
+---
+
+# 🧱 3️⃣ Configuración de la Aplicación
+
+## 📁 Car_max/apps.py
+
+```python
+from django.apps import AppConfig
+
+
+class CarMaxConfig(AppConfig):
+
+    default_auto_field = 'django.db.models.BigAutoField'
+
+    name = 'Car_max'
+```
+
+---
+
+# 📌 Explicación
+
+## `AppConfig`
+
+Representa la configuración interna de la aplicación Django.
+
+---
+
+## `default_auto_field`
+
+Define el tipo de llave primaria automática por defecto.
+
+En este caso:
+
+```python
+BigAutoField
+```
+
+usa enteros grandes para IDs automáticos.
+
+---
+
+## `name = 'Car_max'`
+
+Le indica a Django el nombre oficial de la aplicación.
+
+Esto permite:
+
+- registrar modelos
+- cargar templates
+- detectar migraciones
+- conectar URLs
+
+---
+
+# 🧱 4️⃣ Configuración Global del Proyecto
+
+## 📁 Luxury_Car/settings.py
+
+---
+
+# 🔐 Configuración principal
+
+```python
+SECRET_KEY = 'django-insecure...'
+```
+
+---
+
+# 📌 Explicación
+
+La `SECRET_KEY` es utilizada por Django para:
+
+- cifrado de sesiones
+- tokens CSRF
+- seguridad
+- autenticación
+
+⚠️ Nunca debe compartirse en producción.
+
+---
+
+# 🧱 Modo desarrollo
+
+```python
+DEBUG = True
+```
+
+---
+
+# 📌 Explicación
+
+Permite:
+
+- ver errores detallados
+- depuración
+- recarga automática
+
+⚠️ En producción debe ser:
+
+```python
+DEBUG = False
+```
+
+---
+
+# 🧱 Hosts permitidos
+
+```python
+ALLOWED_HOSTS = []
+```
+
+---
+
+# 📌 Explicación
+
+Define qué dominios pueden acceder al proyecto.
+
+En desarrollo normalmente queda vacío.
+
+---
+
+# 🧱 Usuario Personalizado
+
+```python
+AUTH_USER_MODEL = 'Car_max.User'
+```
+
+---
+
+# 📌 Explicación
+
+Django normalmente usa:
+
+```python
+auth.User
+```
+
+Pero nosotros creamos un usuario personalizado porque necesitamos:
+
+- vendedores
+- compradores
+- permisos
+- dashboards
+- roles especiales
+
+---
+
+# 🧱 Aplicaciones instaladas
 
 ```python
 INSTALLED_APPS = [
+
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -90,76 +311,231 @@ INSTALLED_APPS = [
 
 ---
 
-## 📌 Explicación
+# 📌 Explicación
 
-Django necesita saber qué aplicaciones existen dentro del proyecto.
+## Apps internas de Django
 
-Cuando agregamos:
+### `django.contrib.admin`
+
+Activa el panel administrativo.
+
+---
+
+### `django.contrib.auth`
+
+Sistema de autenticación.
+
+---
+
+### `django.contrib.sessions`
+
+Permite sesiones de usuario.
+
+---
+
+### `django.contrib.messages`
+
+Permite mensajes dinámicos.
+
+---
+
+### `django.contrib.staticfiles`
+
+Manejo de archivos estáticos:
+
+- CSS
+- JS
+- imágenes
+
+---
+
+## App personalizada
 
 ```python
 'Car_max'
 ```
 
-Django automáticamente:
-
-- detecta modelos
-- habilita templates
-- registra migraciones
-- conecta admin.py
-- carga urls internas
+Registra nuestra aplicación automotriz.
 
 ---
 
-# 🧱 3️⃣ Usuario Personalizado
-
-## 📁 luxury_car/settings.py
+# 🧱 Middlewares
 
 ```python
-AUTH_USER_MODEL = 'Car_max.User'
+MIDDLEWARE = [
+
+    'django.middleware.security.SecurityMiddleware',
+
+    'django.contrib.sessions.middleware.SessionMiddleware',
+
+    'django.middleware.common.CommonMiddleware',
+
+    'django.middleware.csrf.CsrfViewMiddleware',
+
+    'django.contrib.auth.middleware.AuthenticationMiddleware',
+
+    'django.contrib.messages.middleware.MessageMiddleware',
+
+    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+]
 ```
 
 ---
 
-## 📌 ¿Por qué usamos un User personalizado?
+# 📌 Explicación
 
-Porque más adelante necesitaremos:
+Los middlewares procesan cada petición HTTP.
 
-- vendedores
-- compradores
-- roles
-- permisos
-- dashboards
+Ejemplos:
 
-El modelo por defecto de Django es limitado.
+| Middleware | Función |
+|---|---|
+| SecurityMiddleware | Seguridad |
+| SessionMiddleware | Manejo de sesiones |
+| AuthenticationMiddleware | Login de usuarios |
+| CsrfViewMiddleware | Protección CSRF |
 
-Por eso creamos:
+---
+
+# 🧱 Templates
 
 ```python
-class User(AbstractUser)
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+
+        'DIRS': [],
+
+        'APP_DIRS': True,
+    },
+]
 ```
 
 ---
 
-# 🧱 4️⃣ Configuración de URLs Globales
+# 📌 Explicación
 
-## 📁 luxury_car/urls.py
+## `APP_DIRS = True`
+
+Le dice a Django:
+
+> “Busca automáticamente carpetas templates dentro de cada app”.
+
+Por eso funciona:
+
+```bash
+templates/Car_max/
+```
+
+---
+
+# 🧱 Base de Datos
+
+```python
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
+}
+```
+
+---
+
+# 📌 Explicación
+
+El proyecto utiliza:
+
+```bash
+SQLite3
+```
+
+Ventajas:
+
+- ligera
+- rápida
+- no requiere instalación
+- perfecta para desarrollo
+
+---
+
+# 🧱 Internacionalización
+
+```python
+LANGUAGE_CODE = 'en-us'
+
+TIME_ZONE = 'UTC'
+```
+
+---
+
+# 📌 Explicación
+
+Define:
+
+- idioma del sistema
+- zona horaria
+- traducciones
+- manejo de fechas
+
+---
+
+# 🧱 Archivos estáticos
+
+```python
+STATIC_URL = 'static/'
+```
+
+---
+
+# 📌 Explicación
+
+Permite servir:
+
+- CSS
+- JavaScript
+- imágenes estáticas
+
+---
+
+# 🧱 Tipo de ID por defecto
+
+```python
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+```
+
+---
+
+# 📌 Explicación
+
+Define IDs automáticos grandes para nuevos modelos.
+
+---
+
+# 🧱 5️⃣ Configuración de URLs Globales
+
+## 📁 Luxury_Car/urls.py
 
 ```python
 from django.contrib import admin
+
 from django.urls import path, include
 
 from django.conf import settings
+
 from django.conf.urls.static import static
+
 
 urlpatterns = [
 
     # =========================
-    # ⚙️ Admin Django
+    # ⚙️ Panel Admin
     # =========================
     path('admin/', admin.site.urls),
 
     # =========================
-    # 🚘 App Car_max
+    # 🚘 Aplicación Car_max
     # =========================
     path('', include('Car_max.urls')),
 ]
@@ -168,6 +544,7 @@ urlpatterns = [
 # 🖼️ Archivos multimedia
 # =========================
 if settings.DEBUG:
+
     urlpatterns += static(
         settings.MEDIA_URL,
         document_root=settings.MEDIA_ROOT
@@ -176,311 +553,34 @@ if settings.DEBUG:
 
 ---
 
-## 📌 Explicación
+# 📌 Explicación
 
-### `include('Car_max.urls')`
+## `admin.site.urls`
 
-Le dice a Django:
-
-> “Todas las rutas principales estarán dentro de la aplicación Car_max”.
-
----
-
-### `static(...)`
-
-Permite mostrar:
-
-- imágenes
-- fotografías de vehículos
-- archivos multimedia
-
-durante desarrollo.
-
----
-
-# 🧱 5️⃣ Crear URLs de la Aplicación
-
-## 📁 Car_max/urls.py
-
-```python
-from django.urls import path
-
-from . import views
-
-urlpatterns = [
-
-    # =========================
-    # 🏠 Home
-    # =========================
-    path('', views.home, name='home'),
-
-    # =========================
-    # 🔐 Autenticación
-    # =========================
-    path(
-        'register/',
-        views.register,
-        name='register'
-    ),
-
-    path(
-        'login/',
-        views.login_view,
-        name='login'
-    ),
-
-    path(
-        'logout/',
-        views.logout_view,
-        name='logout'
-    ),
-
-    # =========================
-    # 📊 Dashboard
-    # =========================
-    path(
-        'dashboard/',
-        views.dashboard,
-        name='dashboard'
-    ),
-
-    # =========================
-    # 🚘 CRUD Vehículos
-    # =========================
-    path(
-        'cars/create/',
-        views.car_create,
-        name='car_create'
-    ),
-
-    path(
-        'cars/<uuid:pk>/edit/',
-        views.car_update,
-        name='car_update'
-    ),
-
-    path(
-        'cars/<uuid:pk>/delete/',
-        views.car_delete,
-        name='car_delete'
-    ),
-]
-```
-
----
-
-# 📌 Explicación General de URLs
-
-## 🏠 Home
-
-```python
-path('', views.home, name='home')
-```
-
-Página principal del sistema.
-
-Aquí mostraremos:
-
-- catálogo
-- vehículos destacados
-- cards Bootstrap
-
----
-
-## 🔐 Login y Registro
-
-Permiten:
-
-- autenticación
-- sesiones
-- acceso al dashboard
-
----
-
-## 📊 Dashboard
-
-Panel privado para vendedores.
-
-Aquí podrán:
-
-- crear autos
-- editar autos
-- eliminar autos
-
----
-
-## 🚘 CRUD Vehículos
-
-CRUD significa:
-
-- Create
-- Read
-- Update
-- Delete
-
-Es decir:
-
-- registrar vehículo
-- editar vehículo
-- eliminar vehículo
-
----
-
-# 🧱 6️⃣ Crear Estructura de Templates
-
-## 📌 Crear carpetas
+Activa:
 
 ```bash
-templates/
-└── Car_max/
+/admin/
 ```
+
+Panel administrativo Django.
 
 ---
 
-## 📌 Dentro crear:
+## `include('Car_max.urls')`
 
-```bash
-base.html
-
-home.html
-
-login.html
-
-register.html
-
-dashboard.html
-
-car_form.html
-
-product_confirm_delete.html
-```
+Conecta las rutas internas de la aplicación.
 
 ---
 
-# 🧱 7️⃣ Template Base
+## `static(...)`
 
-## 📁 templates/Car_max/base.html
+Permite mostrar imágenes durante desarrollo.
 
-```html
-<!DOCTYPE html>
-<html lang="es">
-<head>
+Muy importante porque el modelo `Car` usa:
 
-    <meta charset="UTF-8">
-
-    <title>Car_max</title>
-
-    <!-- Bootstrap 5.3 -->
-    <link
-        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
-        rel="stylesheet">
-
-</head>
-
-<body>
-
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-
-  <div class="container">
-
-    <a class="navbar-brand" href="/">
-        Car_max
-    </a>
-
-    <div>
-
-      {% if user.is_authenticated %}
-
-        <span class="text-white me-3">
-            Hola {{ user.username }}
-        </span>
-
-        <a href="{% url 'logout' %}"
-           class="btn btn-outline-light btn-sm">
-           Logout
-        </a>
-
-      {% else %}
-
-        <a href="{% url 'login' %}"
-           class="btn btn-outline-light btn-sm me-2">
-           Login
-        </a>
-
-        <a href="{% url 'register' %}"
-           class="btn btn-primary btn-sm">
-           Registro
-        </a>
-
-      {% endif %}
-
-    </div>
-
-  </div>
-
-</nav>
-
-<div class="container mt-4">
-
-    {% block content %}
-    {% endblock %}
-
-</div>
-
-</body>
-</html>
+```python
+ImageField
 ```
-
----
-
-# 📌 Explicación del Template Base
-
-## 🧩 ¿Qué es `base.html`?
-
-Es la plantilla principal del proyecto.
-
-Todos los demás templates heredarán de aquí usando:
-
-```html
-{% extends 'Car_max/base.html' %}
-```
-
----
-
-## 🎨 Bootstrap 5.3
-
-```html
-<link
-href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
-```
-
-Nos permite usar:
-
-- navbar
-- botones
-- cards
-- tablas
-- formularios modernos
-- sistema responsive
-
----
-
-## 🔐 Navbar dinámica
-
-```html
-{% if user.is_authenticated %}
-```
-
-Verifica si el usuario inició sesión.
-
-Si inició sesión:
-
-- muestra saludo
-- muestra logout
-
-Si NO inició sesión:
-
-- login
-- registro
 
 ---
