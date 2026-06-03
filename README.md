@@ -540,7 +540,7 @@ Es la plantilla principal que todas las demás extienden. Contiene la estructura
 
 {% block content %}
 
-#<h2 class="mb-4">Vehículos disponibles</h2>
+{#<h2 class="mb-4">Vehículos disponibles</h2> #}
 
 <div class="row">
     {% for car in cars %}
@@ -583,7 +583,7 @@ Página de inicio pública. Muestra una cuadrícula con los primeros 6 vehículo
 
 {% block content %}
 
-<h2>Registro</h2>
+{#<h2>Registro</h2>#}
 
 <form method="POST">
     {% csrf_token %}
@@ -595,12 +595,12 @@ Página de inicio pública. Muestra una cuadrícula con los primeros 6 vehículo
 {% endblock %}
 
 Formulario de registro que utiliza UserCreationForm. Los campos son username, password1 y password2. Incluye validación en cliente y mensajes de error.
-login.html
+## login.html
 {% extends 'Car_max/base.html' %}
 
 {% block content %}
 
-<h2>Login</h2>
+{$<h2>Login</h2>#}
 
 <form method="POST">
     {% csrf_token %}
@@ -619,7 +619,7 @@ Formulario de inicio de sesión con campos username y password. Después de un l
 {% block content %}
 
 <div class="d-flex justify-content-between align-items-center mb-4">
-    <h2>Panel de Control - Inventario Exclusivo</h2>
+    {#<h2>Panel de Control - Inventario Exclusivo</h2>#}
     <a href="{% url 'car_create' %}" class="btn btn-success">+ Registrar Automóvil</a>
 </div>
 
@@ -671,7 +671,7 @@ Panel de control del vendedor. Muestra solo los vehículos del usuario autentica
 
 {% block content %}
 
-<h2>Ficha Técnica del Vehículo</h2>
+{#<h2>Ficha Técnica del Vehículo</h2>#}
 
 <form method="POST" enctype="multipart/form-data">
     {% csrf_token %}
@@ -688,7 +688,7 @@ Formulario reutilizable para crear y editar vehículos. Usa CarForm con enctype=
 
 {% block content %}
 
-<h3>¿Retirar del catálogo el "{{ car.brand }} {{ car.model_name }}"?</h3>
+{#<h3>¿Retirar del catálogo el "{{ car.brand }} {{ car.model_name }}"?</h3>#}
 
 <form method="POST">
     {% csrf_token %}
