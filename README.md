@@ -75,7 +75,7 @@ Luxury_Car/               # Carpeta raíz del proyecto
 └── manage.py             # Script de gestión
 
 
-Archivo settings.py - Configuración del Proyecto
+# Archivo settings.py - Configuración del Proyecto
 """
 Django settings for Luxury_Car project.
 
@@ -535,7 +535,7 @@ Vista Car Delete: Similar a update, pero en lugar de editar, muestra una pantall
 
 Es la plantilla principal que todas las demás extienden. Contiene la estructura HTML base: el <!DOCTYPE html>, las etiquetas <head> con los enlaces a Bootstrap 5.3, el <body> con un navbar que cambia según si el usuario está autenticado, y un bloque {% block content %} donde las plantillas hijas insertan su contenido específico.
 
-home.html
+## home.html
 {% extends 'Car_max/base.html' %}
 
 {% block content %}
@@ -578,7 +578,7 @@ home.html
 
 {% endblock %}
 Página de inicio pública. Muestra una cuadrícula con los primeros 6 vehículos usando tarjetas de Bootstrap. Cada tarjeta muestra la imagen, marca, modelo, año y precio. Si el usuario no ha iniciado sesión, muestra botones de login y registro.
-register.html
+## register.html
 {% extends 'Car_max/base.html' %}
 
 {% block content %}
@@ -613,7 +613,7 @@ login.html
 {% endblock %}
 
 Formulario de inicio de sesión con campos username y password. Después de un login exitoso, redirige al dashboard.
-dashboard.html
+## dashboard.html
 {% extends 'Car_max/base.html' %}
 
 {% block content %}
@@ -666,7 +666,7 @@ dashboard.html
 Panel de control del vendedor. Muestra solo los vehículos del usuario autenticado. Incluye un botón para agregar nuevos vehículos y una cuadrícula de tarjetas con cada auto, mostrando imagen, marca, modelo, año, precio y botones de editar y eliminar. Si no hay vehículos, muestra un mensaje indicándolo.
 
 
-car_form.html
+## car_form.html
 {% extends 'Car_max/base.html' %}
 
 {% block content %}
@@ -683,7 +683,7 @@ car_form.html
 {% endblock %}
 
 Formulario reutilizable para crear y editar vehículos. Usa CarForm con enctype="multipart/form-data" para permitir subir imágenes. Los campos se renderizan con {{ form.as_p }}, que los muestra como párrafos.
-car_confirm_delete.html
+## car_confirm_delete.html
 {% extends 'Car_max/base.html' %}
 
 {% block content %}
@@ -729,7 +729,7 @@ Usuario logueado Y ser el propietario
 
 
 
-Conclusión
+# Conclusión
 El proyecto Car_max demuestra una implementación completa de una aplicación web con Django. Los principales aprendizajes fueron:
 Modelos con UUID: Usar identificadores únicos universales en lugar de números auto-incrementales para mayor seguridad y escalabilidad.
 Relaciones complejas: Implementar claves foráneas (uno a muchos) y relaciones muchos a muchos con tabla intermedia personalizada.
@@ -762,7 +762,7 @@ Este proyecto me permitió comprender cómo funciona una aplicación web real de
 
 
 
-ERRORES
+# ERRORES
 1. ERROR DE MIGRACIONES (El más común)
 del db.sqlite3
 rmdir /s store\migrations
