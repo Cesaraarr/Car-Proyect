@@ -1,4 +1,4 @@
-Introducción
+# Introducción
 después de agregar cd documents,  md (lo que quieran), cd (lo mismo), después agregar los siguientes comandos:
 python -m venv venv
 venv\Scripts\acativate
@@ -31,7 +31,7 @@ solo volver a la página anterior y poner denuevo lo que estábamos haciendo, a 
 
 
 
-EXPLICACIÓN
+# EXPLICACIÓN
 El proyecto "Car_max" (también llamado "Luxury_Car" o "Car-Project" en GitHub) es una aplicación web desarrollada con Django orientada a la gestión y administración de vehículos. La plataforma permite registrar usuarios vendedores, administrar automóviles, visualizar vehículos registrados y controlar el inventario desde un dashboard privado.
 El sistema fue desarrollado utilizando el patrón MTV (Model - Template - View) propio de Django, permitiendo una correcta separación entre la lógica del sistema, la base de datos y la interfaz gráfica.
 ¿Por qué Django es una herramienta eficiente para el desarrollo web?
@@ -45,7 +45,7 @@ El sistema fue desarrollado utilizando el patrón MTV (Model - Template - View) 
 
 
 
-Estructura del proyecto:
+# Estructura del proyecto:
 Luxury_Car/               # Carpeta raíz del proyecto
 ├── Luxury_Car/           # Carpeta de configuración
 │   ├── __init__.py
@@ -90,24 +90,24 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 
 from pathlib import Path
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'
+#Build paths inside the project like this: BASE_DIR / 'subdir'
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
+#Quick-start development settings - unsuitable for production
+#See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
+#SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-hms!t8z#9(qjq$dxv#ze0o)5nng7_i1l8vepo$*p)u(e0(wmcm'
 
-# SECURITY WARNING: don't run with debug turned on in production!
+#SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
 ALLOWED_HOSTS = []
 
 AUTH_USER_MODEL = 'Car_max.User'
 
-# Application definition
+#Application definition
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -149,8 +149,8 @@ TEMPLATES = [
 WSGI_APPLICATION = 'Luxury_Car.wsgi.application'
 
 
-# Database
-# https://docs.djangoproject.com/en/5.2/ref/settings/#databases
+#Database
+#https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
 DATABASES = {
     'default': {
@@ -160,8 +160,8 @@ DATABASES = {
 }
 
 
-# Password validation
-# https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
+#Password validation
+#https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -179,8 +179,8 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
-# Internationalization
-# https://docs.djangoproject.com/en/5.2/topics/i18n/
+#Internationalization
+#https://docs.djangoproject.com/en/5.2/topics/i18n/
 
 LANGUAGE_CODE = 'en-us'
 
@@ -191,20 +191,20 @@ USE_I18N = True
 USE_TZ = True
 
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/5.2/howto/static-files/
+#Static files (CSS, JavaScript, Images)
+#https://docs.djangoproject.com/en/5.2/howto/static-files/
 
 STATIC_URL = 'static/'
 
-# Default primary key field type
-# https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
+#Default primary key field type
+#https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 
 
-Explicación del archivo settings.py:
+# Explicación del archivo settings.py:
 aquí solo agregamos lo que es la aplicación y el usuario, aparte también de poder agregar las imágenes, aunque hay más puntos, estos son los que nosotros agregamos 
 Archivo urls.py (Principal) - Rutas Globales
 from django.contrib import admin
@@ -232,7 +232,7 @@ if settings.DEBUG:
 
 
 
-Archivo urls.py (Aplicación) - Rutas del Sistema
+# Archivo urls.py (Aplicación) - Rutas del Sistema
 
 from django.urls import path
 from . import views
@@ -251,9 +251,8 @@ Este archivo define todas las rutas específicas de la aplicación Car_max. Cada
 Rutas estáticas: Las primeras rutas son fijas: la página principal (/), registro (/register/), login (/login/), logout (/logout/) y dashboard (/dashboard/). Cada una tiene un nombre único (name='home', name='register', etc.) que permite referenciarlas desde las plantillas usando {% url 'home' %}
 
 
-Archivo models.py - Estructura de la Base de Datos
-![EVIDENCIA](https://github.com/Cesaraarr/Car-Proyect/blob/ed9043a01eab9a32ca54e70a22785529176445cf/Car_max/imagen/modelo.png)
-
+# Archivo models.py - Estructura de la Base de Datos
+![EVIDENCIA](https://github.com/Cesaraarr/Car-Proyect/blob/d10f7e7c3ecfe31e8d0821ebca772519627c9c01/Car_max/imagen/modelo.png)
 import uuid
 from django.db import models
 from django.conf import settings
@@ -321,7 +320,7 @@ Modelo Cart (Carrito): Representa un carrito de compras asociado a un usuario. U
 Modelo CartItem (Item del carrito): Es la tabla intermedia entre Cart y Car. Además de las claves foráneas, incluye quantity para saber cuántas unidades de cada vehículo hay en el carrito. La restricción UniqueConstraint evita que el mismo vehículo se agregue dos veces al mismo carrito.
  
 
-Archivo forms.py - Formularios del Sistema
+# Archivo forms.py - Formularios del Sistema
 from django import forms
 from .models import Car
 
@@ -342,7 +341,7 @@ Widget personalizado: El atributo widgets permite cambiar cómo se muestra un ca
 Este formulario se usa tanto para crear nuevos vehículos como para editar los existentes, reutilizando el mismo código
 
 
-Archivo admin.py - Panel de Administración
+# Archivo admin.py - Panel de Administración
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from .models import User, Category, Car, Cart, CartItem
@@ -391,7 +390,7 @@ class CartItemAdmin(admin.ModelAdmin):
 Administrador de Vehículo: Muestra información clave como marca, modelo, año, precio, transmisión, combustible y propietario. Los filtros permiten buscar por marca, transmisión, combustible y categorías. La barra de búsqueda funciona sobre marca, modelo y descripción.
 Inline para Carrito: CartItemInline permite ver y editar los items de un carrito directamente dentro de la página del carrito, en formato tabular. extra=1 muestra una fila vacía para agregar nuevos items.
 
-Archivo views.py - Lógica de Control
+# Archivo views.py - Lógica de Control
 
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, logout, authenticate
@@ -492,8 +491,8 @@ Vista Car Update: Recibe el pk (UUID) del vehículo a editar. Busca el vehículo
 Vista Car Delete: Similar a update, pero en lugar de editar, muestra una pantalla de confirmación. Si la petición es POST (usuario confirmó), elimina el vehículo con car.delete() y redirige al dashboard.
 
 
-Plantillas HTML - Interfaz de Usuario
-base.html
+# Plantillas HTML - Interfaz de Usuario
+## base.html
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -705,7 +704,7 @@ Pantalla de confirmación antes de eliminar un vehículo. Muestra la informació
 
 
 
-Flujo de Funcionamiento
+# Flujo de Funcionamiento
 Paso a paso del sistema:
 Registro de usuario: El usuario entra a /register/, completa el formulario con nombre de usuario y contraseña. Al enviarlo, Django valida los datos, crea el usuario en la base de datos, inicia sesión automáticamente y redirige al home.
 Inicio de sesión: El usuario entra a /login/, ingresa sus credenciales. Django las autentica y, si son correctas, inicia sesión y redirige al dashboard.
@@ -817,3 +816,7 @@ dir store\migrations
 12. REINICIAR SERVIDOR LIMPIO
 taskkill /f /im python.exe
 python manage.py runserver
+
+
+
+
