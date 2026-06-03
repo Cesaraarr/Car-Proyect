@@ -540,7 +540,7 @@ Es la plantilla principal que todas las demás extienden. Contiene la estructura
 
 {% block content %}
 
-<h2 class="mb-4">Vehículos disponibles</h2>
+#<h2 class="mb-4">Vehículos disponibles</h2>
 
 <div class="row">
     {% for car in cars %}
